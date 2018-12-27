@@ -241,6 +241,7 @@ alias inform='ssh -Y akshays@inform.stanford.edu'
 alias icme-mpi='ssh -Y akshays@icme-mpi1.stanford.edu'
 alias icme-gpu='ssh -Y akshays@icme-gpu1.stanford.edu'
 alias sherlock='ssh -Y akshays@sherlock.stanford.edu'
+alias sherlock2='ssh -Y akshays@login.sherlock.stanford.edu'
 
 alias cab='ssh -Y akshay@cab.llnl.gov'
 alias vulcan='ssh -Y akshay@vulcan.llnl.gov'
@@ -256,6 +257,11 @@ alias cooley='ssh -Y akshays@cooley.alcf.anl.gov'
 #-------------------------------------------------------------
 # File & strings related functions:
 #-------------------------------------------------------------
+
+function setup_floatpy() {
+    export PATH=/opt/openmpi-2.1.1-GNU/bin:${PATH}
+    export LD_LIBRARY_PATH=/opt/openmpi-2.1.1-GNU/lib:${LD_LIBRARY_PATH}
+}
 
 # SSH into a specific corn machine
 function corn() {
