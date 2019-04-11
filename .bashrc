@@ -172,16 +172,8 @@ export LS_COLORS='di=1;34:fi=0:ln=1;96:pi=5:so=5:bd=5:cd=5:or=96;41:mi=0:ex=1;32
 #-----------------
 # Export PATH and LD_LIBRARY_PATH variables
 #-----------------
-source /opt/intel/bin/compilervars.sh intel64
-export PATH=/opt/mvapich2-2.1/bin:/opt/visit/bin:${PATH}:/usr/local/cuda/bin:/opt/pgi/linux86-64/2016/bin:/opt/pdt-intel/x86_64/bin:/opt/tau-intel/x86_64/bin
-export LD_LIBRARY_PATH=/opt/mvapich2-2.1/lib:/opt/hdf5-GNU-serial/lib:${LD_LIBRARY_PATH}:/usr/local/cuda/lib64:/usr/local/lib
-
-export TAU_MAKEFILE=/opt/tau-intel/x86_64/lib/Makefile.tau-icpc-ompt-mpi-pdt-openmp
-
-export LEGION_PATH=/home/akshays/Codes/legion
-export REGENT_PATH=/home/akshays/Codes/legion/language
-export HDF_ROOT=/opt/hdf5-GNU-serial
-export SUPERLU_PATH=/opt/SuperLU_5.2.1
+export PATH=/usr/local/cuda-10.0/bin:${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 #============================================================
 #
