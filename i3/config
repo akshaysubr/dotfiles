@@ -31,7 +31,8 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 
 hide_edge_borders both
 
-exec compton -f -i 0.7 --focus-exclude '_NET_WM_NAME@:s = "rofi"'
+# exec compton -f -i 0.7 --focus-exclude '_NET_WM_NAME@:s = "rofi"'
+exec compton --config ~/.config/compton/compton.conf
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
