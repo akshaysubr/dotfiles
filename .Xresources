@@ -1,0 +1,25 @@
+Xft.dpi: 144
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+rofi.lines: 5
+rofi.eh: 2
+rofi.padding: 200
+rofi.fullscreen: true
+rofi.bw: 0
+rofi.separator-style: none
+rofi.hide-scrollbar: true
+
+!                  'background',  'border', 'separator'
+rofi.color-window: argb:cc2d303b, #7c8389,  #1d1f21
+
+! State:           'bg',          'fg',    'bgalt',       'hlbg',  'hlfg'
+rofi.color-normal: argb:cc1d1f21, #c4cbd4, argb:c6404552, #4084d6, #f9f9f9
+rofi.color-urgent: argb:cc1d1f21, #cc6666, argb:e54b5160, #a54242, #f9f9f9
+rofi.color-active: argb:cc1d1f21, #65acff, argb:e44b5160, #4491ed, #f9f9f9
+
+rofi.font: Ubuntu Mono 18
