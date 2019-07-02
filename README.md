@@ -32,6 +32,8 @@ My setup for bash, vim and tmux
 
 6. Enjoy using the plugins and customize as required
 
-## Requirements
+## Pre-requisites
 
-All of these dotfiles require the use of [Powerline fonts](https://github.com/powerline/fonts)
+1. Install [i3-gaps](https://github.com/akshaysubr/dotfiles/blob/arcturus/i3/README.md)
+
+2. [Powerline fonts](https://github.com/powerline/fonts)
