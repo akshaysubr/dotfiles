@@ -172,8 +172,8 @@ export LS_COLORS='di=1;34:fi=0:ln=1;96:pi=5:so=5:bd=5:cd=5:or=96;41:mi=0:ex=1;32
 #-----------------
 # Export PATH and LD_LIBRARY_PATH variables
 #-----------------
-export PATH=/usr/local/cuda-10.0/bin:${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export PATH=/usr/local/cuda/bin:/opt/OpenMPI-4.0.0-GNU-CUDA-10.1/bin:$HOME/bin:${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda/extras/CUPTI/lib64:/usr/local/cuda/lib64:${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 #============================================================
 #
