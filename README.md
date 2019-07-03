@@ -34,6 +34,6 @@ My setup for bash, vim and tmux
 
 ## Pre-requisites
 
-1. Install [i3-gaps](https://github.com/akshaysubr/dotfiles/blob/arcturus/i3/README.md)
+1. Install [i3-gaps](https://github.com/akshaysubr/dotfiles/blob/master/i3/README.md)
 
 2. [Powerline fonts](https://github.com/powerline/fonts)
