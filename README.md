@@ -15,6 +15,10 @@ My setup for bash, vim and tmux
    $ ln -s ${DOTFILES}/.shell_prompt.sh ~/.shell_prompt.sh
    $ ln -s ${DOTFILES}/.tmux.conf ~/.tmux.conf
    $ ln -s ${DOTFILES}/.tmuxline_snapshot.conf ~/.tmuxline_snapshot.conf
+   $ ln -s ${DOTFILES}/i3 ~/.config/i3
+   $ ln -s ${DOTFILES}/termite ~/.config/termite
+   $ ln -s ${DOTFILES}/compton ~/.config/compton
+   $ ln -s ${DOTFILES}/.Xresources ~/.Xresources
    ```
    where `${DOTFILES}` is the path to this repository
 
