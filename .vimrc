@@ -63,3 +63,11 @@ let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#show_close_button = 0
+
+let g:promptline_preset = {
+        \'a' : [ promptline#slices#host(), promptline#slices#python_virtualenv() ],
+        \'b' : [ promptline#slices#user() ],
+        \'c' : [ promptline#slices#cwd({ 'dir_limit':2}) ],
+        \'y' : [ promptline#slices#vcs_branch() ],
+        \'warn' : [ promptline#slices#last_exit_code() ] }
+let g:promptline_theme='airline'
