@@ -60,8 +60,10 @@ smart_gaps on
 
 # Set background wallpaper and lockscreen
 exec --no-startup-id betterlockscreen -w
-exec --no-startup-id xautolock -time 5 -locker "betterlockscreen --off 1 --lock dim"
-bindsym $mod+shift+x exec betterlockscreen --off 5 --lock dim
+exec --no-startup-id xautolock -time 5 -locker "/home/${USER}/.config/i3/lock.sh"
+bindsym $mod+shift+x exec /home/${USER}/.config/i3/lock.sh
+# exec --no-startup-id xautolock -time 5 -locker "betterlockscreen --off 1 --lock dim"
+# bindsym $mod+shift+x exec betterlockscreen --off 5 --lock dim
 
 # Set function key bindings for audio
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
@@ -74,8 +76,8 @@ bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # Set function key bindings for display
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 20
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 20
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
 
 # Screenshot
 bindsym Print exec --no-startup-id gnome-screenshot -i

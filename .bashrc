@@ -249,6 +249,10 @@ alias cooley='ssh -Y akshays@cooley.alcf.anl.gov'
 # File & strings related functions:
 #-------------------------------------------------------------
 
+function setup_kaldi() {
+  source /home/akshays/Codes/kaldi/tools/env.sh
+}
+
 # SSH into a specific corn machine
 function corn() {
     ssh -Y akshays@corn"${1:-}".stanford.edu
