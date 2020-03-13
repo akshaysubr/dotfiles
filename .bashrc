@@ -172,7 +172,8 @@ export LS_COLORS='di=1;34:fi=0:ln=1;96:pi=5:so=5:bd=5:cd=5:or=96;41:mi=0:ex=1;32
 #-----------------
 # Export PATH and LD_LIBRARY_PATH variables
 #-----------------
-export PATH=/usr/local/cuda/bin:/opt/OpenMPI-4.0.0-GNU-CUDA-10.1/bin:$HOME/bin:${PATH:+:${PATH}}
+export MPIDIR=/opt/openmpi-4.0.2-gcc-7.4.0-cuda-10.2.89
+export PATH=/usr/local/cuda/bin:$MPIDIR/bin:$HOME/bin:${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda/extras/CUPTI/lib64:/usr/local/cuda/lib64:${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 #============================================================
@@ -248,6 +249,19 @@ alias cooley='ssh -Y akshays@cooley.alcf.anl.gov'
 #-------------------------------------------------------------
 # File & strings related functions:
 #-------------------------------------------------------------
+
+function setup_padelibs() {
+  export PADELIB_ROOT_DIR=/home/akshays/Codes/PadeLibs
+  export PADELIB_DEPENDENCIES_DIR=${PADELIB_ROOT_DIR}/dependencies
+  export KOKKOS_ROOT_DIR=${PADELIB_DEPENDENCIES_DIR}/kokkos
+  export KOKKOS_TOOLS_ROOT_DIR=${PADELIB_DEPENDENCIES_DIR}/kokkos-tools
+  export YAML_CPP_ROOT_DIR=${PADELIB_DEPENDENCIES_DIR}/yaml-cpp
+  export HDF5_ROOT_DIR=${PADELIB_DEPENDENCIES_DIR}/hdf5-1.10.5
+  export OMP_PROC_BIND=spread
+  export OMP_PLACES=threads
+  source $KOKKOS_ROOT_DIR/bin/nvcc_wrapper_config.sh
+  source $KOKKOS_TOOLS_ROOT_DIR/config_profile_tools.sh
+}
 
 function setup_kaldi() {
   source /home/akshays/Codes/kaldi/tools/env.sh
