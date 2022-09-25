@@ -250,6 +250,17 @@ alias cooley='ssh -Y akshays@cooley.alcf.anl.gov'
 # File & strings related functions:
 #-------------------------------------------------------------
 
+function webcam() {
+  # Set shutter speed to 2x the frame rate (30fps => 1/60s shutter speed)
+  gphoto2 --set-config-value /main/capturesettings/shutterspeed="1/60"
+  # Set the f-stop to the fastest supported by the lens used
+  gphoto2 --set-config-value /main/capturesettings/f-number="2.8"
+  # Set ISO to auto to adapt to different lighting
+  gphoto2 --set-config-value /main/imgsettings/iso="Auto ISO"
+  # Capture image preview, pipe to ffmpeg using the NVIDIA GPU decoder and output to video4linux device
+  gphoto2 --stdout --capture-movie | ffmpeg -hwaccel nvdec -c:v mjpeg_cuvid -i - -vcodec rawvideo -pix_fmt yuv420p -threads 0 -f v4l2 /dev/video0
+}
+
 function setup_padelibs() {
   export PADELIB_ROOT_DIR=/home/akshays/Codes/PadeLibs
   export PADELIB_DEPENDENCIES_DIR=${PADELIB_ROOT_DIR}/dependencies
@@ -261,6 +272,11 @@ function setup_padelibs() {
   export OMP_PLACES=threads
   source $KOKKOS_ROOT_DIR/bin/nvcc_wrapper_config.sh
   source $KOKKOS_TOOLS_ROOT_DIR/config_profile_tools.sh
+
+  export HDF5_ROOT=${HDF5_ROOT_DIR}
+  export HOST_ARCH=AMDAVX
+  export DEVICE_ARCH=TURING75
+  export PATH=/home/akshays/Codes/cmake-3.17.2-Linux-x86_64/bin:${PATH}
 }
 
 function setup_kaldi() {
@@ -355,3 +371,5 @@ function makezip() { zip -r "${1%%/}.zip" "$1" ; }
 # Make your directories and files access rights sane.
 function sanitize() { chmod -R u=rwX,g=rX,o= "$@" ;}
 
+export KICAD_SYMBOL_DIR=/usr/share/kicad/library
+export KISYSMOD=/usr/share/kicad/modules
