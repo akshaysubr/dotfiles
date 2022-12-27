@@ -172,7 +172,8 @@ export LS_COLORS='di=1;34:fi=0:ln=1;96:pi=5:so=5:bd=5:cd=5:or=96;41:mi=0:ex=1;32
 #-----------------
 # Export PATH and LD_LIBRARY_PATH variables
 #-----------------
-export PATH=/usr/local/cuda/bin:/opt/OpenMPI-4.0.0-GNU-CUDA-10.1/bin:$HOME/bin:${PATH:+:${PATH}}
+export MPIDIR=/opt/openmpi-4.0.2-gcc-7.4.0-cuda-10.2.89
+export PATH=/usr/local/cuda/bin:$MPIDIR/bin:$HOME/bin:${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda/extras/CUPTI/lib64:/usr/local/cuda/lib64:${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 #============================================================
@@ -227,6 +228,49 @@ alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
 #-------------------------------------------------------------
 # File & strings related functions:
 #-------------------------------------------------------------
+
+function webcam() {
+  # Set shutter speed to 2x the frame rate (30fps => 1/60s shutter speed)
+  gphoto2 --set-config-value /main/capturesettings/shutterspeed="1/60"
+  # Set the f-stop to the fastest supported by the lens used
+  gphoto2 --set-config-value /main/capturesettings/f-number="2.8"
+  # Set ISO to auto to adapt to different lighting
+  gphoto2 --set-config-value /main/imgsettings/iso="Auto ISO"
+  # Capture image preview, pipe to ffmpeg using the NVIDIA GPU decoder and output to video4linux device
+  gphoto2 --stdout --capture-movie | ffmpeg -hwaccel nvdec -c:v mjpeg_cuvid -i - -vcodec rawvideo -pix_fmt yuv420p -threads 0 -f v4l2 /dev/video0
+}
+
+function setup_padelibs() {
+  export PADELIB_ROOT_DIR=/home/akshays/Codes/PadeLibs
+  export PADELIB_DEPENDENCIES_DIR=${PADELIB_ROOT_DIR}/dependencies
+  export KOKKOS_ROOT_DIR=${PADELIB_DEPENDENCIES_DIR}/kokkos
+  export KOKKOS_TOOLS_ROOT_DIR=${PADELIB_DEPENDENCIES_DIR}/kokkos-tools
+  export YAML_CPP_ROOT_DIR=${PADELIB_DEPENDENCIES_DIR}/yaml-cpp
+  export HDF5_ROOT_DIR=${PADELIB_DEPENDENCIES_DIR}/hdf5-1.10.5
+  export OMP_PROC_BIND=spread
+  export OMP_PLACES=threads
+  source $KOKKOS_ROOT_DIR/bin/nvcc_wrapper_config.sh
+  source $KOKKOS_TOOLS_ROOT_DIR/config_profile_tools.sh
+
+  export HDF5_ROOT=${HDF5_ROOT_DIR}
+  export HOST_ARCH=AMDAVX
+  export DEVICE_ARCH=TURING75
+  export PATH=/home/akshays/Codes/cmake-3.17.2-Linux-x86_64/bin:${PATH}
+}
+
+function setup_kaldi() {
+  source /home/akshays/Codes/kaldi/tools/env.sh
+}
+
+# SSH into a specific corn machine
+function corn() {
+    ssh -Y akshays@corn"${1:-}".stanford.edu
+}
+
+# SSH into a specific rice machine
+function rice() {
+    ssh -Y akshays@rice"${1:-}".stanford.edu
+}
 
 # Find a file with a pattern in name:
 function ff() { find . -type f -iname '*'"$*"'*' -ls ; }
@@ -306,3 +350,5 @@ function makezip() { zip -r "${1%%/}.zip" "$1" ; }
 # Make your directories and files access rights sane.
 function sanitize() { chmod -R u=rwX,g=rX,o= "$@" ;}
 
+export KICAD_SYMBOL_DIR=/usr/share/kicad/library
+export KISYSMOD=/usr/share/kicad/modules

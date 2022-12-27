@@ -36,6 +36,8 @@ My setup for bash, vim and tmux
 
 6. Enjoy using the plugins and customize as required
 
+7. Setup JACK and systemwide EQ following [this](https://github.com/M4he/Linux/blob/master/JACK/PA_through_JACK/README.md) article
+
 ## Pre-requisites
 
 1. Install [i3-gaps](https://github.com/akshaysubr/dotfiles/blob/master/i3/README.md)

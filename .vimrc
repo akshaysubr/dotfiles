@@ -1,29 +1,25 @@
 set nocompatible              " be iMproved, required
-filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin('~/.vim/plugged')
 
 " vim-fugitive for git awesomeness
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 " vim-airline for a cool statusbar
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 "tmuxline for tmux and vim-airline integration
-Bundle 'edkolev/tmuxline.vim'
+Plug 'edkolev/tmuxline.vim'
 
 "promptline for bash and vim-airline integration
-Bundle 'edkolev/promptline.vim'
+Plug 'edkolev/promptline.vim'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+"vim-arduino to use vim instead of the arduino IDE
+Plug 'stevearc/vim-arduino'
+
+" Initialize plugin system
+call plug#end()
 
 set tabstop=2
 set shiftwidth=2
@@ -53,6 +49,7 @@ colorscheme ron
 
 au BufNewFile,BufRead *.rg set filetype=regent
 au BufNewFile,BufRead *.t  set filetype=regent
+au BufNewFile,BufRead *.keymap  set filetype=dts
 
 set laststatus=2
 let g:airline_powerline_fonts=1
@@ -63,3 +60,28 @@ let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#show_close_button = 0
+
+let g:promptline_preset = {
+        \'a' : [ promptline#slices#host(), promptline#slices#python_virtualenv() ],
+        \'b' : [ promptline#slices#user() ],
+        \'c' : [ promptline#slices#cwd({ 'dir_limit':2}) ],
+        \'y' : [ promptline#slices#vcs_branch() ],
+        \'warn' : [ promptline#slices#last_exit_code() ] }
+let g:promptline_theme='airline'
+
+
+" my_file.ino [arduino:avr:uno] [arduino:usbtinyisp] (/dev/ttyACM0:9600)
+function! ArduinoStatusLine()
+  let port = arduino#GetPort()
+  let line = '[' . g:arduino_board . '] [' . g:arduino_programmer . ']'
+  if !empty(port)
+    let line = line . ' (' . port . ':' . g:arduino_serial_baud . ')'
+  endif
+  return line
+endfunction
+augroup ArduinoStatusLine
+  autocmd! * <buffer>
+  autocmd BufWinEnter <buffer> setlocal stl=%f\ %h%w%m%r\ %{ArduinoStatusLine()}\ %=\ %(%l,%c%V\ %=\ %P%)
+augroup END
+
+autocmd BufNewFile,BufRead *.ino let g:airline_section_x='%{ArduinoStatusLine()}'

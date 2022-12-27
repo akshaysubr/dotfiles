@@ -14,6 +14,7 @@ set $mod Mod4
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:Ubuntu Mono, FontAwesome 12
+#font pango:DejaVu Sans, FontAwesome 10
 
 set $bg-color            #1d1f21
 set $border-color        #81a2be
@@ -33,9 +34,6 @@ hide_edge_borders both
 
 # Startup programs
 exec compton --config ~/.config/compton/compton.conf
-exec google-chrome
-exec slack
-exec google-play-music-desktop-player
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -59,22 +57,53 @@ smart_gaps on
 
 # Set background wallpaper and lockscreen
 exec --no-startup-id betterlockscreen -w
-exec --no-startup-id xautolock -time 5 -locker "betterlockscreen --off 1 --lock dim"
-bindsym $mod+shift+x exec betterlockscreen --off 5 --lock dim
+exec_always xautolock -corners 0-00 -cornersize 100 -time 5 -locker "/home/${USER}/.config/i3/lock.sh"
+exec_always nm-applet
+exec insync
+bindsym $mod+shift+x exec /home/${USER}/.config/i3/lock.sh
+
+# Dropdown calculator
+# Launch calc on terminal
+exec --no-startup-id termite --name=dropdown_terminal -e tmux
+for_window [instance="dropdown_terminal"] floating enable
+for_window [instance="dropdown_terminal"] move scratchpad; [instance="dropdown_terminal"] scratchpad show; move scratchpad
+bindsym $mod+c [instance="dropdown_terminal"] scratchpad show
+
+# https://github.com/ValveSoftware/steam-for-linux/issues/1040
+for_window [class="^Steam$" title="^Friends$"] floating enable
+for_window [class="^Steam$" title="Steam - News"] floating enable
+for_window [class="^Steam$" title=".* - Chat"] floating enable
+for_window [class="^Steam$" title="^Settings$"] floating enable
+for_window [class="^Steam$" title=".* - event started"] floating enable
+for_window [class="^Steam$" title=".* CD key"] floating enable
+for_window [class="^Steam$" title="^Steam - Self Updater$"] floating enable
+for_window [class="^Steam$" title="^Screenshot Uploader$"] floating enable
+for_window [class="^Steam$" title="^Steam Guard - Computer Authorization Required$"] floating enable
+for_window [title="^Steam Keyboard$"] floating enable
+
+# Start JACK server
+exec qjackctl --preset MOTU-M2
 
 # Set function key bindings for audio
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 
-bindsym XF86AudioPlay exec --no-startup-id playerctl play 
-bindsym XF86AudioPause exec --no-startup-id playerctl pause 
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause 
+bindsym XF86AudioPause exec --no-startup-id playerctl play-pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next  
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 # Set function key bindings for display
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 20
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 20
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
+
+# Screenshot
+bindsym Print exec --no-startup-id gnome-screenshot -i
+
+# Move between monitors
+bindsym $mod+Ctrl+Left move workspace to output left
+bindsym $mod+Ctrl+Right move workspace to output right
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
@@ -82,13 +111,8 @@ bindsym $mod+Return exec i3-sensible-terminal
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start dmenu (a program launcher)
-# bindsym $mod+d exec dmenu_run
+# start rofi (a program launcher)
 bindsym $mod+d exec rofi -show run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym $mod+j focus left
@@ -142,7 +166,7 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1: "
+set $ws1 "1: "
 set $ws2 "2: "
 set $ws3 "3: "
 set $ws4 "4: "
@@ -177,9 +201,11 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
-assign [class="Google-chrome"] $ws1
+assign [class="Firefox"] $ws1
 assign [class="Slack"] $ws9
 assign [class="Google Play Music Desktop Player"] $ws10
+assign [class="qjackctl"] $ws10
+assign [class="calfjackhost"] $ws10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -187,6 +213,21 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id ~/.config/i3/i3-exit lock, mode "default"
+    bindsym e exec --no-startup-id ~/.config/i3/i3-exit logout, mode "default"
+    bindsym s exec --no-startup-id ~/.config/i3/i3-exit suspend, mode "default"
+    bindsym h exec --no-startup-id ~/.config/i3/i3-exit hibernate, mode "default"
+    bindsym r exec --no-startup-id ~/.config/i3/i3-exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id ~/.config/i3/i3-exit shutdown, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Escape mode "$mode_system"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -215,17 +256,5 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-        status_command i3blocks -c ~/.config/i3/i3blocks.conf
-        position top
-        colors {
-	    	background $bg-color
-	        	separator #969896
-	    	#                  border             background         text
-	    	focused_workspace  $bg-color          $bg-color          $text-color
-	    	inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-	    	urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-	    }
-}
+# Polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
