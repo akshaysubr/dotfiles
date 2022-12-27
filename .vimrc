@@ -49,6 +49,7 @@ colorscheme ron
 
 au BufNewFile,BufRead *.rg set filetype=regent
 au BufNewFile,BufRead *.t  set filetype=regent
+au BufNewFile,BufRead *.keymap  set filetype=dts
 
 set laststatus=2
 let g:airline_powerline_fonts=1
