@@ -225,27 +225,6 @@ alias lr='ll -R'           #  Recursive ls.
 alias la='ll -A'           #  Show hidden files.
 alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
 
-# SSH aliases
-alias wcr='ssh -Y akshays@wcr-login.stanford.edu'
-alias certainty='ssh -Y akshays@certainty-login.stanford.edu'
-alias modern='ssh -Y akshays@modern.stanford.edu'
-alias olson='ssh -Y lelegroup@aa-olson.stanford.edu'
-alias inform='ssh -Y akshays@inform.stanford.edu'
-alias icme-mpi='ssh -Y akshays@icme-mpi1.stanford.edu'
-alias icme-gpu='ssh -Y akshays@icme-gpu1.stanford.edu'
-alias sherlock='ssh -Y akshays@sherlock.stanford.edu'
-
-alias cab='ssh -Y akshay@cab.llnl.gov'
-alias vulcan='ssh -Y akshay@vulcan.llnl.gov'
-alias borax='ssh -Y akshay@borax.llnl.gov'
-
-alias bw='ssh -Y asubrama@bw.ncsa.illinois.edu'
-
-alias mira='ssh -Y akshays@mira.alcf.anl.gov'
-alias cetus='ssh -Y akshays@cetus.alcf.anl.gov'
-alias vesta='ssh -Y akshays@vesta.alcf.anl.gov'
-alias cooley='ssh -Y akshays@cooley.alcf.anl.gov'
-
 #-------------------------------------------------------------
 # File & strings related functions:
 #-------------------------------------------------------------
@@ -373,3 +352,5 @@ function sanitize() { chmod -R u=rwX,g=rX,o= "$@" ;}
 
 export KICAD_SYMBOL_DIR=/usr/share/kicad/library
 export KISYSMOD=/usr/share/kicad/modules
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
