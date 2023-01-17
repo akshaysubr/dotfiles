@@ -352,3 +352,5 @@ function sanitize() { chmod -R u=rwX,g=rX,o= "$@" ;}
 
 export KICAD_SYMBOL_DIR=/usr/share/kicad/library
 export KISYSMOD=/usr/share/kicad/modules
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
