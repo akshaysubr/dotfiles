@@ -57,7 +57,7 @@ smart_gaps on
 
 # Set background wallpaper and lockscreen
 exec --no-startup-id betterlockscreen -w
-exec_always xautolock -corners 0-00 -cornersize 100 -time 5 -locker "/home/${USER}/.config/i3/lock.sh"
+#exec_always xautolock -corners 0-00 -cornersize 100 -time 5 -locker "/home/${USER}/.config/i3/lock.sh"
 exec_always nm-applet
 exec insync
 bindsym $mod+shift+x exec /home/${USER}/.config/i3/lock.sh
