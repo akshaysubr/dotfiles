@@ -10,36 +10,77 @@ My setup for bash, vim and tmux
 2. Set up symlinks to the dotfiles
 
    ```
-   $ ln -s ${DOTFILES}/.bashrc ~/.bashrc
-   $ ln -s ${DOTFILES}/.vimrc ~/.vimrc
-   $ ln -s ${DOTFILES}/.shell_prompt.sh ~/.shell_prompt.sh
-   $ ln -s ${DOTFILES}/.tmux.conf ~/.tmux.conf
-   $ ln -s ${DOTFILES}/.tmuxline_snapshot.conf ~/.tmuxline_snapshot.conf
-   $ ln -s ${DOTFILES}/i3 ~/.config/i3
-   $ ln -s ${DOTFILES}/termite ~/.config/termite
-   $ ln -s ${DOTFILES}/compton ~/.config/compton
-   $ ln -s ${DOTFILES}/.Xresources ~/.Xresources
+   ln -s ${DOTFILES}/.zshrc ~/.zshrc
+   ln -s ${DOTFILES}/nvim ~/.config/nvim
+   ln -s ${DOTFILES}/.shell_prompt.sh ~/.shell_prompt.sh
+   ln -s ${DOTFILES}/.tmux.conf ~/.tmux.conf
+   ln -s ${DOTFILES}/.tmuxline_snapshot.conf ~/.tmuxline_snapshot.conf
+   ln -s ${DOTFILES}/yabai ~/.config/yabai
+   ln -s ${DOTFILES}/skhd ~/.config/skhd
+   ln -s ${DOTFILES}/kitty ~/.config/kitty
    ```
    where `${DOTFILES}` is the path to this repository
 
-3. Set up [Vundle](https://github.com/VundleVim/Vundle.vim):
+## Set up oh-my-zsh on mac
 
-   `$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
+### Change the default shell to zsh
+```
+chsh -s /bin/zsh
+```
 
-4. Install Plugins
+### Install oh-my-zsh
+```
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
 
-   Launch `vim` and run `:PluginInstall`
+### Instal plugins
 
-5. Install Bundles
+1. [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
+```
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+```
+2. [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+```
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+```
+3. [zsh-z](https://github.com/agkozak/zsh-z)
+```
+git clone https://github.com/agkozak/zsh-z $ZSH_CUSTOM/plugins/zsh-z
+```
+4. [fzg](https://github.com/junegunn/fzf#installation)
+```
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+```
+5. [fasd](https://github.com/clvv/fasd#install)
+```
+brew install fasd
+```
+6. [zsh-vi-mode](https://github.com/jeffreytse/zsh-vi-mode)
+```
+git clone https://github.com/jeffreytse/zsh-vi-mode $ZSH_CUSTOM/plugins/zsh-vi-mode
+```
 
-   Launch `vim` and run `:BundleInstall`
+### Install neovim
 
-6. Enjoy using the plugins and customize as required
+```
+brew install neovim
+```
 
-7. Setup JACK and systemwide EQ following [this](https://github.com/M4he/Linux/blob/master/JACK/PA_through_JACK/README.md) article
+Install [packer](https://github.com/wbthomason/packer.nvim)
+```
+git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+```
 
-## Pre-requisites
-
-1. Install [i3-gaps](https://github.com/akshaysubr/dotfiles/blob/master/i3/README.md)
-
-2. [Powerline fonts](https://github.com/powerline/fonts)
+Open the packer config file
+```
+nvim ~/.config/nvim/lua/custom/packer.lua
+```
+and install all packages using
+```
+:PackerSync
+```
+and update treesitter using
+```
+:TSUpdate
+```
