@@ -77,9 +77,9 @@ plugins=(
     fzf
     git
     history-substring-search
-    vi-mode
     zsh-autosuggestions
     zsh-syntax-highlighting
+    zsh-vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh

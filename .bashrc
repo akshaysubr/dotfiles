@@ -219,7 +219,7 @@ alias lc='ls -ltcr'        #  Sort by/show change time,most recent last.
 alias lu='ls -ltur'        #  Sort by/show access time,most recent last.
 
 # The ubiquitous 'll': directories first, with alphanumeric sorting:
-alias ll="ls -lv -X"
+alias ll="ls -lv"
 alias lm='ll |more'        #  Pipe through 'more'
 alias lr='ll -R'           #  Recursive ls.
 alias la='ll -A'           #  Show hidden files.
@@ -349,8 +349,5 @@ function makezip() { zip -r "${1%%/}.zip" "$1" ; }
 
 # Make your directories and files access rights sane.
 function sanitize() { chmod -R u=rwX,g=rX,o= "$@" ;}
-
-export KICAD_SYMBOL_DIR=/usr/share/kicad/library
-export KISYSMOD=/usr/share/kicad/modules
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

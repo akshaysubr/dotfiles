@@ -36,8 +36,6 @@ let fortran_do_enddo=1
 let fortran_more_precise=1
 let fortran_have_tabs=1
 
-syntax on
-
 set textwidth=0
 set wrapmargin=0
 set formatoptions-=tc
@@ -51,7 +49,9 @@ set hlsearch
 
 set t_Co=256
 set background=dark
-colorscheme ron
+colorscheme default
+
+syntax on
 
 au BufNewFile,BufRead *.rg set filetype=regent
 au BufNewFile,BufRead *.t  set filetype=regent
