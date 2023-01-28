@@ -172,7 +172,8 @@ export LS_COLORS='di=1;34:fi=0:ln=1;96:pi=5:so=5:bd=5:cd=5:or=96;41:mi=0:ex=1;32
 #-----------------
 # Export PATH and LD_LIBRARY_PATH variables
 #-----------------
-export PATH=/usr/local/cuda/bin:/opt/OpenMPI-4.0.0-GNU-CUDA-10.1/bin:$HOME/bin:${PATH:+:${PATH}}
+export MPIDIR=/opt/openmpi-4.0.2-gcc-7.4.0-cuda-10.2.89
+export PATH=/usr/local/cuda/bin:$MPIDIR/bin:$HOME/bin:${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda/extras/CUPTI/lib64:/usr/local/cuda/lib64:${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 #============================================================
@@ -224,30 +225,38 @@ alias lr='ll -R'           #  Recursive ls.
 alias la='ll -A'           #  Show hidden files.
 alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
 
-# SSH aliases
-alias wcr='ssh -Y akshays@wcr-login.stanford.edu'
-alias certainty='ssh -Y akshays@certainty-login.stanford.edu'
-alias modern='ssh -Y akshays@modern.stanford.edu'
-alias olson='ssh -Y lelegroup@aa-olson.stanford.edu'
-alias inform='ssh -Y akshays@inform.stanford.edu'
-alias icme-mpi='ssh -Y akshays@icme-mpi1.stanford.edu'
-alias icme-gpu='ssh -Y akshays@icme-gpu1.stanford.edu'
-alias sherlock='ssh -Y akshays@sherlock.stanford.edu'
-
-alias cab='ssh -Y akshay@cab.llnl.gov'
-alias vulcan='ssh -Y akshay@vulcan.llnl.gov'
-alias borax='ssh -Y akshay@borax.llnl.gov'
-
-alias bw='ssh -Y asubrama@bw.ncsa.illinois.edu'
-
-alias mira='ssh -Y akshays@mira.alcf.anl.gov'
-alias cetus='ssh -Y akshays@cetus.alcf.anl.gov'
-alias vesta='ssh -Y akshays@vesta.alcf.anl.gov'
-alias cooley='ssh -Y akshays@cooley.alcf.anl.gov'
-
 #-------------------------------------------------------------
 # File & strings related functions:
 #-------------------------------------------------------------
+
+function webcam() {
+  # Set shutter speed to 2x the frame rate (30fps => 1/60s shutter speed)
+  gphoto2 --set-config-value /main/capturesettings/shutterspeed="1/60"
+  # Set the f-stop to the fastest supported by the lens used
+  gphoto2 --set-config-value /main/capturesettings/f-number="2.8"
+  # Set ISO to auto to adapt to different lighting
+  gphoto2 --set-config-value /main/imgsettings/iso="Auto ISO"
+  # Capture image preview, pipe to ffmpeg using the NVIDIA GPU decoder and output to video4linux device
+  gphoto2 --stdout --capture-movie | ffmpeg -hwaccel nvdec -c:v mjpeg_cuvid -i - -vcodec rawvideo -pix_fmt yuv420p -threads 0 -f v4l2 /dev/video0
+}
+
+function setup_padelibs() {
+  export PADELIB_ROOT_DIR=/home/akshays/Codes/PadeLibs
+  export PADELIB_DEPENDENCIES_DIR=${PADELIB_ROOT_DIR}/dependencies
+  export KOKKOS_ROOT_DIR=${PADELIB_DEPENDENCIES_DIR}/kokkos
+  export KOKKOS_TOOLS_ROOT_DIR=${PADELIB_DEPENDENCIES_DIR}/kokkos-tools
+  export YAML_CPP_ROOT_DIR=${PADELIB_DEPENDENCIES_DIR}/yaml-cpp
+  export HDF5_ROOT_DIR=${PADELIB_DEPENDENCIES_DIR}/hdf5-1.10.5
+  export OMP_PROC_BIND=spread
+  export OMP_PLACES=threads
+  source $KOKKOS_ROOT_DIR/bin/nvcc_wrapper_config.sh
+  source $KOKKOS_TOOLS_ROOT_DIR/config_profile_tools.sh
+
+  export HDF5_ROOT=${HDF5_ROOT_DIR}
+  export HOST_ARCH=AMDAVX
+  export DEVICE_ARCH=TURING75
+  export PATH=/home/akshays/Codes/cmake-3.17.2-Linux-x86_64/bin:${PATH}
+}
 
 function setup_kaldi() {
   source /home/akshays/Codes/kaldi/tools/env.sh
@@ -352,4 +361,3 @@ function nvinit_command () {
 
 export GOPATH=$HOME/Go
 export PM_PACKAGES_ROOT=$HOME/packman-repo
-
