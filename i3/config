@@ -34,9 +34,7 @@ hide_edge_borders both
 
 # Startup programs
 exec compton --config ~/.config/compton/compton.conf
-exec google-chrome
-exec slack
-exec google-play-music-desktop-player
+exec --no-startup-id insync-headless start
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -60,8 +58,8 @@ smart_gaps on
 
 # Set background wallpaper and lockscreen
 exec --no-startup-id betterlockscreen -w
-exec --no-startup-id xautolock -time 5 -locker "/home/${USER}/.config/i3/lock.sh"
-bindsym $mod+shift+x exec /home/${USER}/.config/i3/lock.sh
+exec --no-startup-id xautolock -time 5 -locker ~/.config/i3/lock.sh
+bindsym $mod+shift+x exec ~/.config/i3/lock.sh
 # exec --no-startup-id xautolock -time 5 -locker "betterlockscreen --off 1 --lock dim"
 # bindsym $mod+shift+x exec betterlockscreen --off 5 --lock dim
 

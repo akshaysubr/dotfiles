@@ -74,7 +74,7 @@ xterm*|rxvt*)
     ;;
 esac
 
-export PATH=${HOME}/.local/bin:${PATH}
+export PATH=${HOME}/ngc-cli:${HOME}/.local/bin:${PATH}
 # powerline-daemon -q
 # POWERLINE_BASH_CONTINUATION=1
 # POWERLINE_BASH_SELECT=1
@@ -340,4 +340,16 @@ function makezip() { zip -r "${1%%/}.zip" "$1" ; }
 
 # Make your directories and files access rights sane.
 function sanitize() { chmod -R u=rwX,g=rX,o= "$@" ;}
+
+# Clean all __pycache__ and .pyc, .pyo files
+function pyclean () {
+    find . -regex '^.*\(__pycache__\|\.py[co]\)$' -delete
+}
+
+function nvinit_command () {
+  nvinit ssh -ask-passcode -user asubramaniam -vault-role nvssh/nsvdc-dev -principals=asubramaniam,bouncer
+}
+
+export GOPATH=$HOME/Go
+export PM_PACKAGES_ROOT=$HOME/packman-repo
 
