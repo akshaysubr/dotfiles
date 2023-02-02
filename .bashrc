@@ -361,3 +361,5 @@ function nvinit_command () {
 
 export GOPATH=$HOME/Go
 export PM_PACKAGES_ROOT=$HOME/packman-repo
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
