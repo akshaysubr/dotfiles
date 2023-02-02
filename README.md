@@ -40,6 +40,8 @@ brew install fasd
 ```
 git clone https://github.com/jeffreytse/zsh-vi-mode $ZSH_CUSTOM/plugins/zsh-vi-mode
 ```
+7. [null-ls](https://github.com/jose-elias-alvarez/null-ls.nvim)
+Nothing special needed to install except the formatters and linters you need. I install [black](https://github.com/psf/black) and [flake8](https://github.com/PyCQA/flake8) for python development.
 
 ### Install neovim
 
