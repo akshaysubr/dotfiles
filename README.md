@@ -1,45 +1,69 @@
 # dotfiles
-My setup for bash, vim and tmux
 
-## Setup
 
-1. Clone this repo
+## Set up oh-my-zsh on mac
 
-   `$ git clone https://github.com/akshaysubr/dotfiles.git`
+### Change the default shell to zsh
+```
+chsh -s /bin/zsh
+```
 
-2. Set up symlinks to the dotfiles
+### Install oh-my-zsh
+```
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
 
-   ```
-   $ ln -s ${DOTFILES}/.bashrc ~/.bashrc
-   $ ln -s ${DOTFILES}/.vimrc ~/.vimrc
-   $ ln -s ${DOTFILES}/.shell_prompt.sh ~/.shell_prompt.sh
-   $ ln -s ${DOTFILES}/.tmux.conf ~/.tmux.conf
-   $ ln -s ${DOTFILES}/.tmuxline_snapshot.conf ~/.tmuxline_snapshot.conf
-   $ ln -s ${DOTFILES}/i3 ~/.config/i3
-   $ ln -s ${DOTFILES}/termite ~/.config/termite
-   $ ln -s ${DOTFILES}/compton ~/.config/compton
-   $ ln -s ${DOTFILES}/.Xresources ~/.Xresources
-   ```
-   where `${DOTFILES}` is the path to this repository
+### Instal plugins
 
-3. Set up [Vundle](https://github.com/VundleVim/Vundle.vim):
+1. [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
+```
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+```
+2. [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+```
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+```
+3. [zsh-z](https://github.com/agkozak/zsh-z)
+```
+git clone https://github.com/agkozak/zsh-z $ZSH_CUSTOM/plugins/zsh-z
+```
+4. [fzg](https://github.com/junegunn/fzf#installation)
+```
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+```
+5. [fasd](https://github.com/clvv/fasd#install)
+```
+brew install fasd
+```
+6. [zsh-vi-mode](https://github.com/jeffreytse/zsh-vi-mode)
+```
+git clone https://github.com/jeffreytse/zsh-vi-mode $ZSH_CUSTOM/plugins/zsh-vi-mode
+```
+7. [null-ls](https://github.com/jose-elias-alvarez/null-ls.nvim)
+Nothing special needed to install except the formatters and linters you need. I install [black](https://github.com/psf/black) and [flake8](https://github.com/PyCQA/flake8) for python development.
 
-   `$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
+### Install neovim
 
-4. Install Plugins
+```
+brew install neovim
+```
 
-   Launch `vim` and run `:PluginInstall`
+Install [packer](https://github.com/wbthomason/packer.nvim)
+```
+git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+```
 
-5. Install Bundles
+Open the packer config file
+```
+nvim ~/.config/nvim/lua/custom/packer.lua
+```
+and install all packages using
+```
+:PackerSync
+```
+and update treesitter using
+```
+:TSUpdate
+```
 
-   Launch `vim` and run `:BundleInstall`
-
-6. Enjoy using the plugins and customize as required
-
-7. Setup JACK and systemwide EQ following [this](https://github.com/M4he/Linux/blob/master/JACK/PA_through_JACK/README.md) article
-
-## Pre-requisites
-
-1. Install [i3-gaps](https://github.com/akshaysubr/dotfiles/blob/master/i3/README.md)
-
-2. [Powerline fonts](https://github.com/powerline/fonts)
