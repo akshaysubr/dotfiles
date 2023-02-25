@@ -122,6 +122,7 @@ eval "$(fasd --init auto)"
 
 alias v='f -t -e nvim -b viminfo'
 alias n='f -e nvim' # quick opening files with vim
+alias vi='nvim'
 
 # Add .local/bin to PATH
 path=(${HOME}/.local/bin $path)
