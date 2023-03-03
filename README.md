@@ -68,7 +68,10 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvi
 
 ### Setup
 
-1. Clone this repo
+1. Clone this repo, update all submodules using
+```
+git submodule update --init --recursive
+```
 
 2. Set up symlinks to the dotfiles
 
