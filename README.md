@@ -45,6 +45,11 @@ git clone https://github.com/jeffreytse/zsh-vi-mode $ZSH_CUSTOM/plugins/zsh-vi-m
 7. [null-ls](https://github.com/jose-elias-alvarez/null-ls.nvim)
 Nothing special needed to install except the formatters and linters you need. I install [black](https://github.com/psf/black) and [flake8](https://github.com/PyCQA/flake8) for python development.
 
+8. [powerlevel10k](https://github.com/romkatv/powerlevel10k)
+```
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+```
+
 ### Install neovim
 #### Option 1:
 Download the latest deb package [release](https://github.com/neovim/neovim/releases/tag/stable) and install using
