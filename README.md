@@ -92,6 +92,10 @@ git submodule update --init --recursive
 ```
 nvim ~/.config/nvim/lua/custom/packer.lua
 ```
+source that file using
+```
+:so
+```
 and install all packages using
 ```
 :PackerSync
