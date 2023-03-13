@@ -22,7 +22,9 @@
 # is used in the bar {} block below.
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango: Noto Sans Regular 10
+# font pango: Inconsolata Regular Nerd Font Complete 11
+# font pango: Noto Sans Regular Nerd Font Complete 10
+font pango:Ubuntu Mono, FontAwesome 12
 
 # set the mod key to the winkey:
 set $mod Mod4
@@ -50,7 +52,7 @@ workspace_layout default
 new_window pixel 1
 
 # thin borders
-# hide_edge_borders both
+hide_edge_borders both
 
 # Set inner/outer gaps
 gaps inner 6
@@ -72,6 +74,7 @@ floating_modifier $mod
 smart_gaps on
 
 # Set background wallpaper and lockscreen
+exec compton --config ~/.config/compton/compton.conf
 # exec --no-startup-id betterlockscreen -w
 #exec_always xautolock -corners 0-00 -cornersize 100 -time 5 -locker "/home/${USER}/.config/i3/lock.sh"
 exec_always nm-applet
@@ -314,6 +317,10 @@ assign [class="Chromium"] $ws1
 assign [class="Thunar"] $ws3
 assign [class="Thunderbird"] $ws4
 assign [class="discord"] $ws9
+assign [class="Slack"] $ws9
+assign [class="Google Play Music Desktop Player"] $ws10
+assign [class="qjackctl"] $ws10
+assign [class="calfjackhost"] $ws10
 
 # automatic set focus new window if it opens on another workspace than the current:
 for_window [class=Xfce4-terminal] focus
@@ -456,7 +463,7 @@ client.urgent		    	$urgentred	$urgentred	$white		$yellowbrown	$yellowbrown
 # Start i3bar to display a workspace bar
 # (plus the system information i3status finds out, if available)
 bar {
-		font pango: Noto Sans Regular 10
+    font pango:Ubuntu Mono, FontAwesome 12
 		status_command i3blocks -c ~/.config/i3/i3blocks.conf
 	    	position top
 #	    	i3bar_command i3bar --transparency
