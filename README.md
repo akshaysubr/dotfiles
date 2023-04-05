@@ -45,20 +45,38 @@ git clone https://github.com/jeffreytse/zsh-vi-mode $ZSH_CUSTOM/plugins/zsh-vi-m
 7. [null-ls](https://github.com/jose-elias-alvarez/null-ls.nvim)
 Nothing special needed to install except the formatters and linters you need. I install [black](https://github.com/psf/black) and [flake8](https://github.com/PyCQA/flake8) for python development.
 
+8. [powerlevel10k](https://github.com/romkatv/powerlevel10k)
+```
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+```
+
 ### Install neovim
+#### Option 1:
 Download the latest deb package [release](https://github.com/neovim/neovim/releases/tag/stable) and install using
 ```
 sudo apt install ./nvim-linux64.deb
 ```
 
-Install [packer](https://github.com/wbthomason/packer.nvim)
+#### Option 2:
+```
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+chmod u+x nvim.appimage
+mv nvim.appimage ~/.local/bin/nvim
+```
+Ensure that `~/.local/bin` is in your `PATH`
+
+
+#### Install [packer](https://github.com/wbthomason/packer.nvim)
 ```
 git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 ```
 
 ### Setup
 
-1. Clone this repo
+1. Clone this repo, update all submodules using
+```
+git submodule update --init --recursive
+```
 
 2. Set up symlinks to the dotfiles
 
@@ -78,6 +96,10 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvi
 3. Open the packer config file
 ```
 nvim ~/.config/nvim/lua/custom/packer.lua
+```
+source that file using
+```
+:so
 ```
 and install all packages using
 ```
