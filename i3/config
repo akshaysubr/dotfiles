@@ -60,7 +60,7 @@ smart_gaps on
 
 # Set background wallpaper and lockscreen
 exec --no-startup-id betterlockscreen -w
-exec --no-startup-id xautolock -time 5 -locker "/home/${USER}/.config/i3/lock.sh"
+# exec --no-startup-id xautolock -time 5 -locker "/home/${USER}/.config/i3/lock.sh"
 bindsym $mod+shift+x exec /home/${USER}/.config/i3/lock.sh
 # exec --no-startup-id xautolock -time 5 -locker "betterlockscreen --off 1 --lock dim"
 # bindsym $mod+shift+x exec betterlockscreen --off 5 --lock dim
@@ -80,7 +80,8 @@ bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
 
 # Screenshot
-bindsym Print exec --no-startup-id gnome-screenshot -i
+# bindsym Print exec --no-startup-id gnome-screenshot -i
+bindsym $mod+Shift+p exec --no-startup-id gnome-screenshot -i
 
 # Move between monitors
 bindsym $mod+Ctrl+Left move workspace to output left
