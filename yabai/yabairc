@@ -96,6 +96,20 @@ yabai -m config window_gap 10
 # yabai -m signal --add event=window_destroyed action="bash /Users/jesseskelton/CustomScripts/SwitchSpaces/window-focus-on-destroy.sh"
 # yabai -m signal --add event=space_changed action="export CUR_ACTIVE_APP=\"iTerm2\""
 
+## Deal with Teams notification windows
+yabai -m rule --add label=ignoreTeamsNotification app="^Microsoft Teams$" title="^Microsoft Teams Notification$" manage=off
+
+yabai -m signal --add \
+      event=application_activated \
+      app="^Microsoft Teams$" \
+      action='${HOME}/.config/yabai/scripts/defeat-teams'
+
+yabai -m signal --add \
+      event=window_focused \
+      app="^Microsoft Teams$" \
+      title="^Microsoft Teams Notification$" \
+      action='${HOME}/.config/yabai/scripts/defeat-teams'
+
 echo "yabai configuration loaded.."
 
 #END
